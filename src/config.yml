@@ -1,0 +1,68 @@
+##############################################################
+####------------------------------------------------------####
+####                 **** Enchantments  ****              ####
+####------------------------------------------------------####
+##############################################################
+
+#Note: Disabling any enchantment will make all items with this enchantment lose the enchantment, and will have to be re-enchanted if the enchantment is ever enabled again.
+
+
+
+#Bubble Enchantment - Allows the user to move up and down in water faster.
+
+Bubble:
+  Enabled: true
+  Name: Surfacing
+
+
+#Magic Protection Enchantment - Like Protection but just for potions
+
+MagicProt:
+  Enabled: true
+  Name: Magic Protection
+
+
+#Piercing Enchantment - Allows arrows to hit more than one mob at a time
+
+Piercing:
+  Enabled: true
+  Name: Piercing
+
+
+#Slashing Enchantment - Increasing sword swinging speed
+
+Slashing:
+  Enabled: true
+  Name: Slashing
+  SlashingPerLevel: 15%
+  MaxLevel: 4
+
+#Decay Enchantment - Makes the item decrease durability (faster in sunlight)
+
+Decay:
+  Enabled: true
+  Name: Curse of Decay
+  
+
+
+##############################################################
+####------------------------------------------------------####
+####                  ****  Languages  ****               ####
+####------------------------------------------------------####
+##############################################################
+
+#The following is what is seen on the enchantments for their levels. This is here so people who run a server in a different language can customize the default number system if it is different to the default one.
+
+EnchantLevelNumber:
+  1: I
+  2: II
+  3: III
+  4: IV
+  5: V
+  6: VI
+  7: VII
+  8: VIII
+  9: IX
+  10: X
+
+
