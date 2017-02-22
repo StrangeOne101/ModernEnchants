@@ -8,10 +8,10 @@ import com.strangeone101.modernenchants.ModernEnchantment;
 import com.strangeone101.modernenchants.config.StandardConfig;
 import com.strangeone101.modernenchants.nms.Rarity;
 
-public class Bubble extends ModernEnchantment {
+public class Surfacing extends ModernEnchantment {
 
-	public Bubble(int id) {
-		super(id, "bubble");
+	public Surfacing(int id) {
+		super(id, "surfacing");
 	}
 
 	@Override
@@ -37,7 +37,7 @@ public class Bubble extends ModernEnchantment {
 
 	@Override
 	public String getName() {
-		return StandardConfig.config.getString("Bubble.Name");
+		return StandardConfig.config.getString("Surfacing.Name");
 		//return "Bubble";
 	}
 

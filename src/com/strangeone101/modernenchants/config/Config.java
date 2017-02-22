@@ -14,6 +14,7 @@ public class Config extends YamlConfiguration {
 	
 	public Config(String path) {
 		File file = new File(ModernEnchants.PLUGIN.getDataFolder(), path);
+		ModernEnchants.PLUGIN.getDataFolder().mkdirs();
 		if (!file.exists()) {
 			try {
 				Files.copy(ModernEnchants.PLUGIN.getResource(path), file.toPath());

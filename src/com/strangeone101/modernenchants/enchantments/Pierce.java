@@ -20,6 +20,7 @@ import com.strangeone101.modernenchants.ModernEnchantment;
 import com.strangeone101.modernenchants.ModernEnchantments;
 import com.strangeone101.modernenchants.ModernEnchants;
 import com.strangeone101.modernenchants.Util;
+import com.strangeone101.modernenchants.config.StandardConfig;
 import com.strangeone101.modernenchants.nms.Rarity;
 
 public class Pierce extends ModernEnchantment implements Listener {
@@ -29,7 +30,12 @@ public class Pierce extends ModernEnchantment implements Listener {
 	}
 
 	@Override
-	public boolean canEnchantItem(ItemStack arg0) {
+	public boolean canEnchantItem(ItemStack itemstack) {
+		for (Enchantment e : itemstack.getEnchantments().keySet()) {
+			if (conflictsWith(e)) {
+				return false;
+			}
+		}
 		return true;
 	}
 
@@ -50,7 +56,7 @@ public class Pierce extends ModernEnchantment implements Listener {
 
 	@Override
 	public String getName() {
-		return "Piercing";
+		return StandardConfig.config.getString("Piercing.Name");
 	}
 
 	@Override

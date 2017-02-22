@@ -5,6 +5,7 @@ import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.inventory.ItemStack;
 
 import com.strangeone101.modernenchants.ModernEnchantment;
+import com.strangeone101.modernenchants.config.StandardConfig;
 import com.strangeone101.modernenchants.nms.Rarity;
 
 public class Slashing extends ModernEnchantment {
@@ -20,12 +21,12 @@ public class Slashing extends ModernEnchantment {
 
 	@Override
 	public String getName() {
-		return "Slashing";
+		return StandardConfig.config.getString("Slashing.Name");
 	}
 
 	@Override
 	public int getMaxLevel() {
-		return 4;
+		return StandardConfig.config.getInt("Slashing.MaxLevel"); //4
 	}
 
 	@Override
@@ -54,7 +55,12 @@ public class Slashing extends ModernEnchantment {
 	}
 
 	@Override
-	public boolean canEnchantItem(ItemStack paramItemStack) {
+	public boolean canEnchantItem(ItemStack itemstack) {
+		for (Enchantment e : itemstack.getEnchantments().keySet()) {
+			if (conflictsWith(e)) {
+				return false;
+			}
+		}
 		return true;
 	}
 

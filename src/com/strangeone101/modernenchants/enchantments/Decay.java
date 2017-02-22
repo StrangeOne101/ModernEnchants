@@ -5,6 +5,7 @@ import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.inventory.ItemStack;
 
 import com.strangeone101.modernenchants.ModernEnchantment;
+import com.strangeone101.modernenchants.config.StandardConfig;
 import com.strangeone101.modernenchants.nms.Rarity;
 
 public class Decay extends ModernEnchantment {
@@ -21,7 +22,7 @@ public class Decay extends ModernEnchantment {
 
 	@Override
 	public String getName() {
-		return null;
+		return StandardConfig.config.getString("Decay.Name", "Curse of Decay");
 	}
 
 	@Override

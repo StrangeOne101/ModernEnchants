@@ -8,9 +8,9 @@
 
 
 
-#Bubble Enchantment - Allows the user to move up and down in water faster.
+#Surfacing Enchantment - Allows the user to move up and down in water faster.
 
-Bubble:
+Surfacing:
   Enabled: true
   Name: Surfacing
 

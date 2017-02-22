@@ -1,13 +1,13 @@
 package com.strangeone101.modernenchants;
 
 import java.lang.reflect.Field;
-import java.util.HashMap;
 import java.util.List;
-import java.util.TreeMap;
 
 import org.bukkit.Bukkit;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import com.strangeone101.modernenchants.config.StandardConfig;
 
 
 public class ModernEnchants extends JavaPlugin {
@@ -24,6 +24,8 @@ public class ModernEnchants extends JavaPlugin {
 		PLUGIN = this;
 		
 		Bukkit.getPluginManager().registerEvents(new ModernEnchantsListener(), this);
+		
+		new StandardConfig();
 	
 		/**Open up the field*/
 		try {
@@ -82,21 +84,4 @@ public class ModernEnchants extends JavaPlugin {
 			
 		} catch (Exception ignored) { }*/
 	}
-	
-	@Deprecated
-	public static String getIVX(int num) {
-		TreeMap<Integer, String> romanNumerals = new TreeMap<Integer, String>();
-		romanNumerals.put(10, "X");
-		romanNumerals.put(9, "IX");
-		romanNumerals.put(5, "V");
-		romanNumerals.put(4, "IV");
-		romanNumerals.put(1, "I");
-
-		int l =  romanNumerals.floorKey(num);
-	    if ( num == l ) {
-	        return romanNumerals.get(num);
-	    }
-	    return romanNumerals.get(l) + getIVX(num - l);
-	}
-
 }

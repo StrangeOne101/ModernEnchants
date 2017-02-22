@@ -5,6 +5,7 @@ import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.inventory.ItemStack;
 
 import com.strangeone101.modernenchants.ModernEnchantment;
+import com.strangeone101.modernenchants.config.StandardConfig;
 import com.strangeone101.modernenchants.nms.Rarity;
 
 public class MagicProtection extends ModernEnchantment {
@@ -14,7 +15,12 @@ public class MagicProtection extends ModernEnchantment {
 	}
 
 	@Override
-	public boolean canEnchantItem(ItemStack arg0) {
+	public boolean canEnchantItem(ItemStack itemstack) {
+		for (Enchantment e : itemstack.getEnchantments().keySet()) {
+			if (conflictsWith(e)) {
+				return false;
+			}
+		}
 		return true;
 	}
 
@@ -38,7 +44,7 @@ public class MagicProtection extends ModernEnchantment {
 
 	@Override
 	public String getName() {
-		return "Magic Protection";
+		return StandardConfig.config.getString("MagicProt.Name");
 	}
 
 	@Override

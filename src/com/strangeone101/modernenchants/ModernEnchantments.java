@@ -8,10 +8,13 @@ import java.util.Map;
 
 import org.bukkit.enchantments.Enchantment;
 
-import com.strangeone101.modernenchants.enchantments.Bubble;
+import com.strangeone101.modernenchants.enchantments.Surfacing;
+import com.strangeone101.modernenchants.enchantments.Decay;
 import com.strangeone101.modernenchants.enchantments.Dullness;
 import com.strangeone101.modernenchants.enchantments.MagicProtection;
 import com.strangeone101.modernenchants.enchantments.Pierce;
+import com.strangeone101.modernenchants.enchantments.RosettaStone;
+import com.strangeone101.modernenchants.enchantments.Slashing;
 import com.strangeone101.modernenchants.nms.MinecraftKey;
 import com.strangeone101.modernenchants.nms.NMSVanillaEnchantment;
 import com.strangeone101.modernenchants.util.ReflectionUtils;
@@ -21,10 +24,13 @@ public class ModernEnchantments {
 	
 	public static Map<Integer, ModernEnchantment> enchantments = new HashMap<Integer, ModernEnchantment>();
 	
-	public static ModernEnchantment BUBBLE;
+	public static ModernEnchantment SURFACING;
 	public static ModernEnchantment MAGIC_PROT;
 	public static ModernEnchantment PIERCE;
 	public static ModernEnchantment DULLNESS;
+	public static ModernEnchantment CURSE_OF_DECAY;
+	public static ModernEnchantment SLASHING;
+	public static ModernEnchantment ROSETTA_STONE;
 	
 	private static boolean registered = false;
 	
@@ -37,10 +43,13 @@ public class ModernEnchantments {
 	public static boolean register() {
 		if (registered) return false;
 		
-		ModernEnchantments.BUBBLE = register(Bubble.class, 140);
+		ModernEnchantments.SURFACING = register(Surfacing.class, 140);
 		ModernEnchantments.PIERCE = register(Pierce.class, 141);
 		ModernEnchantments.DULLNESS = register(Dullness.class, 142);
 		ModernEnchantments.MAGIC_PROT = register(MagicProtection.class, 143);
+		ModernEnchantments.CURSE_OF_DECAY = register(Decay.class, 144);
+		ModernEnchantments.SLASHING = register(Slashing.class, 145);
+		ModernEnchantments.ROSETTA_STONE = register(RosettaStone.class, 146);
 		
 		registered = true;
 		

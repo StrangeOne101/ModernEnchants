@@ -2,12 +2,16 @@ package com.strangeone101.modernenchants.nms;
 
 import java.util.Arrays;
 
+import org.bukkit.craftbukkit.v1_11_R1.enchantments.CraftEnchantment;
+import org.bukkit.craftbukkit.v1_11_R1.inventory.CraftItemStack;
+
 import com.strangeone101.modernenchants.ModernEnchantment;
 
 import net.minecraft.server.v1_11_R1.Enchantment;
 import net.minecraft.server.v1_11_R1.Enchantment.Rarity;
 import net.minecraft.server.v1_11_R1.EnchantmentSlotType;
 import net.minecraft.server.v1_11_R1.EnumItemSlot;
+import net.minecraft.server.v1_11_R1.ItemStack;
 
 public class VanillaEnchantment_11RC1 extends NMSVanillaEnchantment {
 
@@ -35,6 +39,16 @@ public class VanillaEnchantment_11RC1 extends NMSVanillaEnchantment {
 			@Override
 			public boolean d() {
 				return enchant.isCursed();
+			}
+			
+			/*@Override
+			public boolean canEnchant(ItemStack itemstack) {
+				return enchant.canEnchantItem(CraftItemStack.asBukkitCopy(itemstack));
+			}*/
+			
+			@Override
+			protected boolean a(Enchantment enchantment) {
+				return super.a(enchantment) && !enchant.conflictsWith(new CraftEnchantment(enchantment));
 			}
 		};
 		enchantment.c(enchant.getName().toLowerCase());
