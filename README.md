@@ -10,7 +10,8 @@ New modern enchantments, without all the fancy custom crap. Works right off the 
 #Current Enchantments
 - Piercing - Allows arrows to hit more than target
 - Slashing - Swing your sword faster
-- Beheading - Have a chance to behead mobs when you kill them
+- Decapitation - Have a chance to behead mobs when you kill them
 - Magic Protection - Protection but against potions
 - Curse of Decay - Items decay by themselves and faster in sunlight
 - Surfacing - Allows you to swim up and down faster
+- Rosetta Stone - Increases the amount of XP dropped from mobs
