@@ -119,7 +119,6 @@ public class Decapitation extends ModernEnchantment {
 		
 		double chance = level * this.chance;
 		double random = Math.random();
-		Bukkit.broadcastMessage("Should drop: " + (Math.random() <= random));
 		if (random <= chance) {
 			ItemStack head = getHead(event.getEntity());
 			
@@ -132,13 +131,13 @@ public class Decapitation extends ModernEnchantment {
 	
 	public ItemStack getHead(LivingEntity entity) {
 		EntityType type = entity.getType();
-		if (type == EntityType.ZOMBIE) return new ItemStack(Material.SKULL_ITEM, 2);
-		if (type == EntityType.SKELETON) return new ItemStack(Material.SKULL_ITEM, 0);
-		if (type == EntityType.WITHER_SKELETON && witherskullenabled) return new ItemStack(Material.SKULL_ITEM, 1);
-		if (type == EntityType.CREEPER) return new ItemStack(Material.SKULL_ITEM, 4);
+		if (type == EntityType.ZOMBIE) return new ItemStack(Material.SKULL_ITEM, 1, (short) 2);
+		if (type == EntityType.SKELETON) return new ItemStack(Material.SKULL_ITEM, 1, (short) 0);
+		if (type == EntityType.WITHER_SKELETON && witherskullenabled) return new ItemStack(Material.SKULL_ITEM, 1, (short) 1);
+		if (type == EntityType.CREEPER) return new ItemStack(Material.SKULL_ITEM, 1, (short) 4);
 		if (type == EntityType.PLAYER) {
 			
-			ItemStack stack = new ItemStack(Material.SKULL_ITEM, 3);
+			ItemStack stack = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
 			SkullMeta meta = (SkullMeta) stack.getItemMeta();
 			if (Math.random() <= 0.01) {
 				meta.setOwner("MHF_Herobrine");
@@ -160,7 +159,7 @@ public class Decapitation extends ModernEnchantment {
 		MHF_Heads.put(EntityType.ENDERMAN, "MHF_Enderman");     MHF_Heads.put(EntityType.VILLAGER, "MHF_Villager");
 		
 		if (MHF_Heads.containsKey(type)) {
-			ItemStack stack = new ItemStack(Material.SKULL_ITEM, 3);
+			ItemStack stack = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
 			SkullMeta meta = (SkullMeta) stack.getItemMeta();
 			meta.setOwner(MHF_Heads.get(type));
 			stack.setItemMeta(meta);

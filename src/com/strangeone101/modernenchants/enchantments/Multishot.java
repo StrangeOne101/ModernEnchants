@@ -98,7 +98,8 @@ public class Multishot extends ModernEnchantment implements Listener {
 						double y = (random.nextDouble() - 0.5) * 0.1;
 						double z = (random.nextDouble() - 0.5) * 0.1;
 						vec.add(new Vector(x, y, z));*/
-						Arrow arrow = event.getEntity().getWorld().spawnArrow(event.getProjectile().getLocation(), vec, event.getForce(), 0.1F);
+						Arrow arrow = event.getEntity().getWorld().spawnArrow(event.getProjectile().getLocation(), vec, event.getForce(), 1F);
+						arrow.setShooter(event.getEntity());
 						event.getBow().setDurability((short) (event.getBow().getDurability() - 1));
 					}
 				}

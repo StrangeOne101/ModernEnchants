@@ -11,6 +11,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.event.Listener;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -53,15 +54,17 @@ public abstract class ModernEnchantment extends Enchantment {
 	 * @return Whether the item has the enchantments in the lore
 	 */
 	public static boolean hasEnchantments(ItemStack stack) {
-		if (!stack.hasItemMeta()) return false;
-		if (!stack.getItemMeta().hasLore()) return false;
-		
-		for (String s : stack.getItemMeta().getLore()) {
-			if (Pattern.compile(ENCH_PREFIX_REGEX).matcher(s).find()) {
-				return true;
+		if (stack == null) return false;
+		//Check the lore
+		if (stack.hasItemMeta() && stack.getItemMeta().hasLore()) {
+			for (String s : stack.getItemMeta().getLore()) {
+				if (Pattern.compile(ENCH_PREFIX_REGEX).matcher(s).find()) {
+					return true;
+				}
 			}
 		}
-		
+
+		//Check the actual enchantments
 		for (Enchantment e : stack.getEnchantments().keySet()) {
 			if (isModernEnchantment(e)) {
 				return true;
@@ -170,51 +173,59 @@ public abstract class ModernEnchantment extends Enchantment {
 		List<Enchantment> enchantmentsUpdated = new ArrayList<Enchantment>();
 		
 		//Updates all current lores
-		for (String s : itemstack.getItemMeta().getLore()) {
-			if (Pattern.compile(ENCH_PREFIX_REGEX).matcher(s).find()) {
-				int id = Integer.valueOf("" + s.charAt(5) + "" + s.charAt(7), 16);
-				int level = Integer.valueOf("" + s.charAt(9), 16);
-				ModernEnchantment ench = ModernEnchantments.enchantments.get(id);
-				
-				if (ench == null) continue;
-				
-				if (!itemstack.containsEnchantment(ench)) {
-					itemstack.addEnchantment(ench, level);
-				}
-				
-				enchantmentsUpdated.add(ench);
+		
+		if (itemstack.hasItemMeta() && itemstack.getItemMeta().hasLore()) {
+			for (String s : itemstack.getItemMeta().getLore()) {
+				if (Pattern.compile(ENCH_PREFIX_REGEX).matcher(s).find()) {
+					int id = Integer.valueOf("" + s.charAt(5) + "" + s.charAt(7), 16);
+					int level = Integer.valueOf("" + s.charAt(9), 16);
+					ModernEnchantment ench = ModernEnchantments.enchantments.get(id);
+					
+					if (ench == null) continue;
+					
+					if (!itemstack.containsEnchantment(ench)) {
+						itemstack.addEnchantment(ench, level);
+					}
+					
+					enchantmentsUpdated.add(ench);
 
-				String line = ENCH_PREFIX;
-				line = line.replace('X', toHex(id).charAt(0)).replace('Y', toHex(id).charAt(1));
-				line = line.replace('Z', toHex(level).charAt(1));
-				line = line + (ench.isCursed() ? ChatColor.RED : ChatColor.GRAY) + ench.getName();
-				
-				if (!getLevelString(level).equals("")) {
-					line = line + " " + getLevelString(level);
+					String line = ENCH_PREFIX;
+					line = line.replace('X', toHex(id).charAt(0)).replace('Y', toHex(id).charAt(1));
+					line = line.replace('Z', toHex(level).charAt(1));
+					line = line + (ench.isCursed() ? ChatColor.RED : ChatColor.GRAY) + ench.getName();
+					
+					if (!getLevelString(level).equals("")) {
+						line = line + " " + getLevelString(level);
+					}
+					
+					newlore.add(line);
+					
+				} else {
+					newlore.add(s);
 				}
-				
-				newlore.add(line);
-				
-			} else {
-				newlore.add(s);
 			}
 		}
-		
+	
 		//This section adds a lore for enchantments without them
 		
 		List<Enchantment> nonUpdated = new ArrayList<Enchantment>();
 		nonUpdated.addAll(itemstack.getEnchantments().keySet());
 		nonUpdated.removeAll(enchantmentsUpdated);
 		
+		Bukkit.broadcastMessage("Nonupdate size: " + nonUpdated.size());
+		Bukkit.broadcastMessage("Encahnts size: " + itemstack.getEnchantments().size());
+		
 		for (Enchantment e : nonUpdated) {
 			if (ModernEnchantment.isModernEnchantment(e)) {
+				Bukkit.broadcastMessage("Updating " + e.getName());
+				
 				String line = ENCH_PREFIX;
 				line = line.replace('X', toHex(e.getId()).charAt(0)).replace('Y', toHex(e.getId()).charAt(1));
-				line = line.replace('Z', toHex(itemstack.getEnchantmentLevel(e)).charAt(1));
+				line = line.replace('Z', toHex(itemstack.getEnchantments().get(e)).charAt(1));
 				line = line + (e.isCursed() ? ChatColor.RED : ChatColor.GRAY) + e.getName();
 				
-				if (!getLevelString(itemstack.getEnchantmentLevel(e)).equals("")) {
-					line = line + " " + getLevelString(itemstack.getEnchantmentLevel(e));
+				if (!getLevelString(itemstack.getEnchantments().get(e)).equals("")) {
+					line = line + " " + getLevelString(itemstack.getEnchantments().get(e));
 				}
 				
 				newlore.add(line);
@@ -231,6 +242,32 @@ public abstract class ModernEnchantment extends Enchantment {
 		itemstack.setItemMeta(meta);
 		
 		return itemstack;
+	}
+	
+	/**
+	 * Updates every item in the inventory that has a ModernEnchantment
+	 * on it.
+	 * 
+	 * @param inventory The inventory to be updated
+	 */
+	public static void updateInventory(Inventory inventory) {
+		for (int i = 0; i < inventory.getSize(); i++) {
+			ItemStack stack = inventory.getItem(i);
+			
+			if (hasEnchantments(stack)) {
+				stack = updateEnchantments(stack);
+				
+				for (Enchantment e : stack.getEnchantments().keySet()) {
+					if (ModernEnchantment.isModernEnchantment(e)) {
+						ModernEnchantment ench = (ModernEnchantment) e;
+						ItemUpdateEvent event2 = new ItemUpdateEvent(stack, inventory, i, ench, stack.getEnchantments().get(e));
+						ench.onUpdate(event2);
+					}
+				}
+				
+				inventory.setItem(i, stack);
+			}
+		}
 	}
 	
 	/***

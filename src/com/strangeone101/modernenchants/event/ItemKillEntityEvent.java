@@ -11,7 +11,8 @@ public class ItemKillEntityEvent extends CustomEvent<EntityDeathEvent> {
 	
 	public ItemKillEntityEvent(EntityDeathEvent event, ItemStack stack, Enchantment ench, int level) {
 		super(event, stack, ench, level);
-		// TODO Auto-generated constructor stub
+		
+		this.entity = event.getEntity();
 	}
 	
 	public LivingEntity getEntity() {
