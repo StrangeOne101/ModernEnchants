@@ -3,6 +3,7 @@ package com.strangeone101.modernenchants.enchantments;
 import java.lang.reflect.Method;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.Arrow;
@@ -56,7 +57,7 @@ public class Pierce extends ModernEnchantment implements Listener {
 
 	@Override
 	public String getName() {
-		return StandardConfig.config.getString("Piercing.Name");
+		return StandardConfig.config.getString("Piercing.Name", "Piercing");
 	}
 
 	@Override
@@ -87,6 +88,8 @@ public class Pierce extends ModernEnchantment implements Listener {
 	public void onHit(ProjectileHitEvent event) {
 		if (event.getEntityType() == EntityType.ARROW && event.getHitEntity() != null && event.getEntity().hasMetadata("MEC_Piercing")) {
 			Arrow arrow = (Arrow) event.getEntity();
+			
+			Location loc = arrow.getLocation().clone().add(arrow.getVelocity().multiply(0.5D));
 			
 			double arrowDamage = 1;
 			

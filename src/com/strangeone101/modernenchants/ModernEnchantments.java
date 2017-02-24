@@ -9,9 +9,12 @@ import java.util.Map;
 import org.bukkit.enchantments.Enchantment;
 
 import com.strangeone101.modernenchants.enchantments.Surfacing;
+import com.strangeone101.modernenchants.enchantments.UnnaturalWrath;
+import com.strangeone101.modernenchants.enchantments.Dashing;
+import com.strangeone101.modernenchants.enchantments.Decapitation;
 import com.strangeone101.modernenchants.enchantments.Decay;
-import com.strangeone101.modernenchants.enchantments.Dullness;
 import com.strangeone101.modernenchants.enchantments.MagicProtection;
+import com.strangeone101.modernenchants.enchantments.Multishot;
 import com.strangeone101.modernenchants.enchantments.Pierce;
 import com.strangeone101.modernenchants.enchantments.RosettaStone;
 import com.strangeone101.modernenchants.enchantments.Slashing;
@@ -25,12 +28,15 @@ public class ModernEnchantments {
 	public static Map<Integer, ModernEnchantment> enchantments = new HashMap<Integer, ModernEnchantment>();
 	
 	public static ModernEnchantment SURFACING;
-	public static ModernEnchantment MAGIC_PROT;
+	public static ModernEnchantment PROTECTION_MAGIC;
 	public static ModernEnchantment PIERCE;
-	public static ModernEnchantment DULLNESS;
 	public static ModernEnchantment CURSE_OF_DECAY;
 	public static ModernEnchantment SLASHING;
 	public static ModernEnchantment ROSETTA_STONE;
+	public static ModernEnchantment DECAPITATION;
+	public static ModernEnchantment WALK_SPEED;
+	public static ModernEnchantment MULTISHOT;
+	public static ModernEnchantment DAMAGE_UNNATURAL;
 	
 	private static boolean registered = false;
 	
@@ -45,11 +51,15 @@ public class ModernEnchantments {
 		
 		ModernEnchantments.SURFACING = register(Surfacing.class, 140);
 		ModernEnchantments.PIERCE = register(Pierce.class, 141);
-		ModernEnchantments.DULLNESS = register(Dullness.class, 142);
-		ModernEnchantments.MAGIC_PROT = register(MagicProtection.class, 143);
+		ModernEnchantments.DECAPITATION = register(Decapitation.class, 142);
+		ModernEnchantments.PROTECTION_MAGIC = register(MagicProtection.class, 143);
 		ModernEnchantments.CURSE_OF_DECAY = register(Decay.class, 144);
 		ModernEnchantments.SLASHING = register(Slashing.class, 145);
 		ModernEnchantments.ROSETTA_STONE = register(RosettaStone.class, 146);
+		ModernEnchantments.WALK_SPEED = register(Dashing.class, 147);
+		ModernEnchantments.MULTISHOT = register(Multishot.class, 148);
+		ModernEnchantments.DAMAGE_UNNATURAL = register(UnnaturalWrath.class, 149);
+		
 		
 		registered = true;
 		

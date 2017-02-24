@@ -15,6 +15,10 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import com.strangeone101.modernenchants.config.StandardConfig;
+import com.strangeone101.modernenchants.event.ItemDisenchantEvent;
+import com.strangeone101.modernenchants.event.ItemEnchantEvent;
+import com.strangeone101.modernenchants.event.ItemKillEntityEvent;
+import com.strangeone101.modernenchants.event.ItemUpdateEvent;
 import com.strangeone101.modernenchants.nms.Rarity;
 
 public abstract class ModernEnchantment extends Enchantment {
@@ -54,6 +58,12 @@ public abstract class ModernEnchantment extends Enchantment {
 		
 		for (String s : stack.getItemMeta().getLore()) {
 			if (Pattern.compile(ENCH_PREFIX_REGEX).matcher(s).find()) {
+				return true;
+			}
+		}
+		
+		for (Enchantment e : stack.getEnchantments().keySet()) {
+			if (isModernEnchantment(e)) {
 				return true;
 			}
 		}
@@ -250,4 +260,12 @@ public abstract class ModernEnchantment extends Enchantment {
 	}
 
 	public abstract Rarity getRarity();
+	
+	public void onUpdate(ItemUpdateEvent event) {};
+	
+	public void onEnchant(ItemEnchantEvent event) {};
+	
+	public void onDisenchant(ItemDisenchantEvent event) {};
+	
+	public void onKillEntity(ItemKillEntityEvent event) {};
 }
