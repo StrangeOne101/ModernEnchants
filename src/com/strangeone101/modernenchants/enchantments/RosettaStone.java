@@ -21,6 +21,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import com.strangeone101.modernenchants.ModernEnchantment;
 import com.strangeone101.modernenchants.ModernEnchants;
 import com.strangeone101.modernenchants.config.StandardConfig;
+import com.strangeone101.modernenchants.event.ItemKillEntityEvent;
 import com.strangeone101.modernenchants.nms.Rarity;
 
 public class RosettaStone extends ModernEnchantment implements Listener {
@@ -95,15 +96,20 @@ public class RosettaStone extends ModernEnchantment implements Listener {
 				ItemStack stack = damager.getInventory().getItemInMainHand();
 				if (stack != null && stack.containsEnchantment(this)) {
 					Bukkit.broadcastMessage("rosetta_stone");
-					int level = stack.getEnchantmentLevel(this);
 					
-					double xpBoostAmount = level * xp_boost;
-					
-					event.setDroppedExp((int) (event.getDroppedExp() + (event.getDroppedExp() * xpBoostAmount)));
 				}
 			
 			}		
 		}
+	}
+	
+	@Override
+	public void onKillEntity(ItemKillEntityEvent event) {
+		int level = event.getItem().getEnchantmentLevel(this);
+		
+		double xpBoostAmount = level * xp_boost;
+		
+		event.getEvent().setDroppedExp((int) (event.getEvent().getDroppedExp() + (event.getEvent().getDroppedExp() * xpBoostAmount)));
 	}
 
 }

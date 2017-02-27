@@ -35,17 +35,17 @@ public class Multishot extends ModernEnchantment implements Listener {
 
 	@Override
 	public String getName() {
-		return "Multishot";
+		return StandardConfig.config.getString("Multishot.Name", "Multishot");
 	}
 
 	@Override
 	public int getMaxLevel() {
-		return 0;
+		return 1;
 	}
 
 	@Override
 	public int getStartLevel() {
-		return 0;
+		return 1;
 	}
 
 	@Override
@@ -100,6 +100,8 @@ public class Multishot extends ModernEnchantment implements Listener {
 						vec.add(new Vector(x, y, z));*/
 						Arrow arrow = event.getEntity().getWorld().spawnArrow(event.getProjectile().getLocation(), vec, event.getForce(), 1F);
 						arrow.setShooter(event.getEntity());
+						arrow.setVelocity(vec);
+						arrow.setFireTicks(event.getProjectile().getFireTicks());
 						event.getBow().setDurability((short) (event.getBow().getDurability() - 1));
 					}
 				}

@@ -44,9 +44,11 @@ public class VanillaEnchantment_11RC1 extends NMSVanillaEnchantment {
 				return enchant.canEnchantItem(CraftItemStack.asBukkitCopy(itemstack));
 			}*/
 			
+			/**Effectively a "isCompatible"*/
+			@SuppressWarnings("deprecation")
 			@Override
 			protected boolean a(Enchantment enchantment) {
-				return super.a(enchantment) && !enchant.conflictsWith(new CraftEnchantment(enchantment));
+				return super.a(enchantment) && !enchant.conflictsWith(org.bukkit.enchantments.Enchantment.getById(Enchantment.getId(enchantment)));
 			}
 		};
 		enchantment.c(enchant.getName().toLowerCase());

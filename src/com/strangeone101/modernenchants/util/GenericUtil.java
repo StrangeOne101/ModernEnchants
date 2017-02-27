@@ -1,4 +1,4 @@
-package com.strangeone101.modernenchants;
+package com.strangeone101.modernenchants.util;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,7 +11,7 @@ import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
-public class Util {
+public class GenericUtil {
 
 	/**
 	 * Gets a {@code List<Entity>} of entities around a specified radius from
@@ -50,5 +50,14 @@ public class Util {
 		}
 
 		return entities;
+	}
+	
+	public static boolean isInteger(String string) {
+		try {
+			Integer.parseInt(string);
+			return true;
+		} catch (NumberFormatException e) {
+			return false;
+		}
 	}
 }

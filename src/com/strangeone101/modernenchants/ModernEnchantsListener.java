@@ -2,6 +2,7 @@ package com.strangeone101.modernenchants;
 
 import java.util.List;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -93,9 +94,9 @@ public class ModernEnchantsListener implements Listener {
 	public void onInventoryOpen(InventoryOpenEvent event) {
 		if (event.isCancelled()) return;
 		
-		if (!(event.getInventory() instanceof PlayerInventory)) {
+		//if (!(event.getInventory() instanceof org.bukkit.in)) {
 			ModernEnchantment.updateInventory(event.getInventory());			
-		}
+		//}
 	}
 	
 	@EventHandler
@@ -118,6 +119,7 @@ public class ModernEnchantsListener implements Listener {
 	@EventHandler
 	public void onTrade(VillagerAcquireTradeEvent event) {
 		boolean shouldReplace = false;
+		Bukkit.broadcastMessage("Villager got trade boi");
 		if (ModernEnchantment.hasEnchantments(event.getRecipe().getResult())) {
 			shouldReplace = true;
 		}
@@ -128,10 +130,13 @@ public class ModernEnchantsListener implements Listener {
 		}
 		
 		if (shouldReplace) {
+			Bukkit.broadcastMessage("Updated villager trade");
 			MerchantRecipe recipe = new MerchantRecipe(ModernEnchantment.updateEnchantments(event.getRecipe().getResult()), event.getRecipe().getMaxUses());
 			for (ItemStack stack : event.getRecipe().getIngredients()) {
 				if (ModernEnchantment.hasEnchantments(stack)) {
 					recipe.addIngredient(ModernEnchantment.updateEnchantments(stack));
+				} else {
+					recipe.addIngredient(stack);
 				}
 			}
 			recipe.setExperienceReward(event.getRecipe().hasExperienceReward());

@@ -35,14 +35,71 @@ Slashing:
   Enabled: true
   Name: Slashing
   SlashingPerLevel: 15%
-  MaxLevel: 4
+  MaxLevel: 5
 
 #Decay Enchantment - Makes the item decrease durability (faster in sunlight)
 
 Decay:
   Enabled: true
   Name: Curse of Decay
+
+
+#Rosetta Stone Enchantment - Makes more XP drop
+
+RosettaStone:
+  Enabled: true
+  Name: Rosetta Stone
+  XPBonusPerLevel: 200%
+  MaxLevel: 2
+
+
+#Decapitation Enchantment - Has a chance to behead mobs/players
+
+Decapitation:
+  Enabled: true
+  Name: Decapitation
+  MaxLevel: 3
+  ChancePerLevel: 20%
+  OnWitherSkeletons: true
+
+
+#Dashing Enchantment - Makes the user walk faster
   
+FastWalk:
+  Enabled: true
+  Name: Dashing
+  SpeedPerLevel: 20%
+  MaxLevel: 3
+  DamageFromWalking: true
+  DamageSpeed: 1.0
+
+
+#Multishot Enchantment - Fire more than one arrow at a time
+
+Multishot:
+  Enabled: true
+  Name: Multishot
+  Arrows: 3
+
+
+#Wrath of Unnatural Enchantment - Do more damage to unnatural mobs (Creepers, Blaze, Slimes, Ghasts, Witches)
+
+UnnaturalWrath:
+  Enabled: true
+  Name: Wrath of Unnatural
+  DamagePerLevel: 2.5
+  MaxLevel: 5
+
+#Soulbound Enchantment - Makes you keep an item on death. Has 2 main ways to not be overpowered. Number 1 is to remove the Soulbound enchantment when it respawns with the player (so they have to re-enchant it) OR to damage the item every time they respawn with it. You can even do both, or none at all, if you wish. 
+
+Soulbound:
+  Enabled: true
+  Name: Soulbound
+  Behaviour:
+    Damage: false
+    DamageAmount: 25%
+    Unenchant: true
+    
 
 
 ##############################################################
@@ -64,5 +121,3 @@ EnchantLevelNumber:
   8: VIII
   9: IX
   10: X
-
-

@@ -20,9 +20,9 @@ import org.bukkit.metadata.FixedMetadataValue;
 import com.strangeone101.modernenchants.ModernEnchantment;
 import com.strangeone101.modernenchants.ModernEnchantments;
 import com.strangeone101.modernenchants.ModernEnchants;
-import com.strangeone101.modernenchants.Util;
 import com.strangeone101.modernenchants.config.StandardConfig;
 import com.strangeone101.modernenchants.nms.Rarity;
+import com.strangeone101.modernenchants.util.GenericUtil;
 
 public class Pierce extends ModernEnchantment implements Listener {
 
@@ -111,7 +111,7 @@ public class Pierce extends ModernEnchantment implements Listener {
 			
 			Bukkit.broadcastMessage("Before");
 			
-			for (Entity e : Util.getEntitiesWithRadius(event.getEntity().getLocation(), radius)) {
+			for (Entity e : GenericUtil.getEntitiesWithRadius(event.getEntity().getLocation(), radius)) {
 				Bukkit.broadcastMessage("Loop");
 				if (e instanceof LivingEntity) {
 					LivingEntity le = (LivingEntity) e;

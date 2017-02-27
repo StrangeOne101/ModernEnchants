@@ -7,6 +7,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.strangeone101.modernenchants.command.EnchantCommand;
+import com.strangeone101.modernenchants.command.ModernEnchantsCommand;
 import com.strangeone101.modernenchants.config.StandardConfig;
 
 
@@ -24,8 +26,14 @@ public class ModernEnchants extends JavaPlugin {
 		PLUGIN = this;
 		
 		Bukkit.getPluginManager().registerEvents(new ModernEnchantsListener(), this);
+		Bukkit.getPluginManager().registerEvents(new AnvilBodge(), this);
 		
 		new StandardConfig();
+		
+		new EnchantCommand();
+		new ModernEnchantsCommand();
+		
+		
 	
 		/**Open up the field*/
 		try {

@@ -13,6 +13,7 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import com.strangeone101.modernenchants.config.StandardConfig;
@@ -63,9 +64,18 @@ public abstract class ModernEnchantment extends Enchantment {
 				}
 			}
 		}
+		
+		Map<Enchantment, Integer> enchantments = stack.getEnchantments();
+		
+		if (stack.hasItemMeta() && stack.getItemMeta() instanceof EnchantmentStorageMeta) {
+			EnchantmentStorageMeta meta = (EnchantmentStorageMeta) stack.getItemMeta();
+			enchantments = meta.getStoredEnchants();
+			Bukkit.broadcastMessage("Luckily this had an enchant meta!");
+		}
 
 		//Check the actual enchantments
-		for (Enchantment e : stack.getEnchantments().keySet()) {
+		for (Enchantment e : enchantments.keySet()) {
+			Bukkit.broadcastMessage(e.toString());
 			if (isModernEnchantment(e)) {
 				return true;
 			}
@@ -140,7 +150,7 @@ public abstract class ModernEnchantment extends Enchantment {
 				
 				line = line.replace('Z', toHex(level).charAt(1));
 				
-				if (!getLevelString(level).equals("")) {
+				if (!getLevelString(level).equals("") && e.getMaxLevel() != e.getStartLevel()) {
 					line = line + " " + getLevelString(level);
 				}
 				
@@ -208,12 +218,19 @@ public abstract class ModernEnchantment extends Enchantment {
 	
 		//This section adds a lore for enchantments without them
 		
+		Map<Enchantment, Integer> enchantments = itemstack.getEnchantments();
+		
+		if (itemstack.hasItemMeta() && itemstack.getItemMeta() instanceof EnchantmentStorageMeta) {
+			EnchantmentStorageMeta meta = (EnchantmentStorageMeta) itemstack.getItemMeta();
+			enchantments = meta.getStoredEnchants();
+		}
+		
 		List<Enchantment> nonUpdated = new ArrayList<Enchantment>();
-		nonUpdated.addAll(itemstack.getEnchantments().keySet());
+		nonUpdated.addAll(enchantments.keySet());
 		nonUpdated.removeAll(enchantmentsUpdated);
 		
 		Bukkit.broadcastMessage("Nonupdate size: " + nonUpdated.size());
-		Bukkit.broadcastMessage("Encahnts size: " + itemstack.getEnchantments().size());
+		Bukkit.broadcastMessage("Encahnts size: " + enchantments.size());
 		
 		for (Enchantment e : nonUpdated) {
 			if (ModernEnchantment.isModernEnchantment(e)) {
@@ -221,11 +238,11 @@ public abstract class ModernEnchantment extends Enchantment {
 				
 				String line = ENCH_PREFIX;
 				line = line.replace('X', toHex(e.getId()).charAt(0)).replace('Y', toHex(e.getId()).charAt(1));
-				line = line.replace('Z', toHex(itemstack.getEnchantments().get(e)).charAt(1));
+				line = line.replace('Z', toHex(enchantments.get(e)).charAt(1));
 				line = line + (e.isCursed() ? ChatColor.RED : ChatColor.GRAY) + e.getName();
 				
-				if (!getLevelString(itemstack.getEnchantments().get(e)).equals("")) {
-					line = line + " " + getLevelString(itemstack.getEnchantments().get(e));
+				if (!getLevelString(enchantments.get(e)).equals("")) {
+					line = line + " " + getLevelString(enchantments.get(e));
 				}
 				
 				newlore.add(line);
@@ -281,11 +298,10 @@ public abstract class ModernEnchantment extends Enchantment {
 	}
 	
 	public static String getLevelString(int number) {
-		if (number <= 0) return "";
 		if (StandardConfig.config.contains("EnchantLevelNumber." + number)) {
 			return StandardConfig.config.getString("EnchantLevelNumber." + number);
 		}
-		return number + "";
+		return "?";
 	}
 	
 	/***

@@ -2,3 +2,17 @@ main: com.strangeone101.modernenchants.ModernEnchants
 version: 1.0
 author: StrangeOne101
 name: ModernEnchants
+commands:
+  modernenchants:
+    description: ModernEnchants misc command
+    usage: /mec <info/version/help>
+    aliases: [mec]
+  enchant:
+    description: Enchant an item
+    usage: /enchant <enchantment> [level] [force]
+  disenchant:
+    description: Disenchant an item
+    usage: /disenchant <enchantment/all>
+  enchantment:
+    description: Find info on enchantments or list them
+    usage: /enchantment <list/enchantment>
