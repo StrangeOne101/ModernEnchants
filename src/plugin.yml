@@ -10,6 +10,7 @@ commands:
   enchant:
     description: Enchant an item
     usage: /enchant <enchantment> [level] [force]
+    aliases: [forceenchant]
   disenchant:
     description: Disenchant an item
     usage: /disenchant <enchantment/all>

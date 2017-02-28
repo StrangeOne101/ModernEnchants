@@ -75,8 +75,7 @@ public class ModernEnchantsListener implements Listener {
 		if (event.getCurrentItem() != null) {
 			if (ModernEnchantment.hasEnchantments(event.getCurrentItem())) {
 				//event.getWhoClicked().sendMessage("Has custom enchantments");
-				event.getInventory().setItem(event.getSlot(), ModernEnchantment.updateEnchantments(event.getCurrentItem()));
-			
+				//event.getInventory().setItem(event.getSlot(), ModernEnchantment.updateEnchantments(event.getCurrentItem()));
 				for (Enchantment e : event.getCurrentItem().getEnchantments().keySet()) {
 					if (ModernEnchantment.isModernEnchantment(e)) {
 						ModernEnchantment ench = (ModernEnchantment) e;

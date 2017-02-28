@@ -123,7 +123,6 @@ public class Decapitation extends ModernEnchantment {
 			ItemStack head = getHead(event.getEntity());
 			
 			if (head != null) {
-				Bukkit.broadcastMessage("Dropped head");
 				event.getEvent().getDrops().add(head);
 			}
 		}

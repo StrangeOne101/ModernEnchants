@@ -49,7 +49,7 @@ Decay:
 RosettaStone:
   Enabled: true
   Name: Rosetta Stone
-  XPBonusPerLevel: 200%
+  XPBonusPerLevel: 50%
   MaxLevel: 2
 
 

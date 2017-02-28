@@ -27,12 +27,12 @@ public class Decay extends ModernEnchantment {
 
 	@Override
 	public int getMaxLevel() {
-		return 0;
+		return 1;
 	}
 
 	@Override
 	public int getStartLevel() {
-		return 0;
+		return 1;
 	}
 
 	@Override

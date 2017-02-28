@@ -18,6 +18,7 @@ import com.strangeone101.modernenchants.enchantments.Multishot;
 import com.strangeone101.modernenchants.enchantments.Pierce;
 import com.strangeone101.modernenchants.enchantments.RosettaStone;
 import com.strangeone101.modernenchants.enchantments.Slashing;
+import com.strangeone101.modernenchants.enchantments.Soulbound;
 import com.strangeone101.modernenchants.nms.MinecraftKey;
 import com.strangeone101.modernenchants.nms.NMSVanillaEnchantment;
 import com.strangeone101.modernenchants.util.ReflectionUtils;
@@ -37,6 +38,7 @@ public class ModernEnchantments {
 	public static ModernEnchantment WALK_SPEED;
 	public static ModernEnchantment MULTISHOT;
 	public static ModernEnchantment DAMAGE_UNNATURAL;
+	public static ModernEnchantment SOULBOUND;
 	
 	private static boolean registered = false;
 	
@@ -59,6 +61,7 @@ public class ModernEnchantments {
 		ModernEnchantments.WALK_SPEED = register(Dashing.class, 147);
 		ModernEnchantments.MULTISHOT = register(Multishot.class, 148);
 		ModernEnchantments.DAMAGE_UNNATURAL = register(UnnaturalWrath.class, 149);
+		ModernEnchantments.SOULBOUND = register(Soulbound.class, 150);
 		
 		
 		registered = true;

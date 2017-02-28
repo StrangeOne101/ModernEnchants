@@ -105,9 +105,10 @@ public class RosettaStone extends ModernEnchantment implements Listener {
 	
 	@Override
 	public void onKillEntity(ItemKillEntityEvent event) {
-		int level = event.getItem().getEnchantmentLevel(this);
+		int level = event.getLevel();
 		
-		double xpBoostAmount = level * xp_boost;
+		
+		double xpBoostAmount = level * xp_boost;		
 		
 		event.getEvent().setDroppedExp((int) (event.getEvent().getDroppedExp() + (event.getEvent().getDroppedExp() * xpBoostAmount)));
 	}

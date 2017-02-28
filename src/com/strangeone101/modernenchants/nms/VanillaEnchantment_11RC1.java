@@ -39,6 +39,18 @@ public class VanillaEnchantment_11RC1 extends NMSVanillaEnchantment {
 				return enchant.isCursed();
 			}
 			
+			@Override
+			public int a(int i) {
+				// TODO Auto-generated method stub
+				return enchant.getMinEnchantability(i);
+			}
+			
+			@Override
+			public int b(int i) {
+				// TODO Auto-generated method stub
+				return enchant.getMaxEnchantability(i);
+			}
+			
 			/*@Override
 			public boolean canEnchant(ItemStack itemstack) {
 				return enchant.canEnchantItem(CraftItemStack.asBukkitCopy(itemstack));

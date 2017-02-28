@@ -32,9 +32,9 @@ public class ModernEnchantsCommand implements CommandExecutor {
 				return true;
 			}
 			
-			sender.sendMessage(ChatColor.YELLOW + "=====" + ChatColor.BOLD + ChatColor.BLUE + "ModernEnchants" + ChatColor.RESET + ChatColor.YELLOW + "=====");
-			sender.sendMessage(ChatColor.YELLOW + "" + ChatColor.ITALIC + "Custom enchantments at their finest.");
-			sender.sendMessage(ChatColor.YELLOW + "Version: " + ModernEnchants.PLUGIN.getDescription().getVersion());
+			sender.sendMessage(ChatColor.YELLOW + "===== " + ChatColor.BLUE + ChatColor.BOLD + " ModernEnchants " + ChatColor.RESET + ChatColor.YELLOW + " =====");
+			sender.sendMessage(ChatColor.BLUE + "" + ChatColor.ITALIC + "Custom enchantments at their finest.");
+			sender.sendMessage(ChatColor.YELLOW + "Version: " + ChatColor.BLUE + ModernEnchants.PLUGIN.getDescription().getVersion());
 			sender.sendMessage(ChatColor.YELLOW + "There are " + ChatColor.BLUE + ModernEnchantments.enchantments.size() + ChatColor.YELLOW + " custom enchantments loaded.");
 			sender.sendMessage(ChatColor.YELLOW + "Created by " + ChatColor.BLUE + "StrangeOne101");
 		} else if (args[0].equalsIgnoreCase("reload")) {
@@ -45,11 +45,11 @@ public class ModernEnchantsCommand implements CommandExecutor {
 			
 			sender.sendMessage(ChatColor.YELLOW + "Command comming soon!");
 		} else if (args[0].equalsIgnoreCase("help")) {
-			sender.sendMessage(ChatColor.YELLOW + "=====" + ChatColor.BOLD + ChatColor.BLUE + "ModernEnchants" + ChatColor.RESET + ChatColor.YELLOW + "=====");
-			sender.sendMessage(ChatColor.YELLOW + "" + ChatColor.ITALIC + "Custom enchantments at their finest.");
+			sender.sendMessage(ChatColor.YELLOW + "===== " + ChatColor.BLUE + ChatColor.BOLD + " ModernEnchants " + ChatColor.RESET + ChatColor.YELLOW + " =====");
 			sender.sendMessage(ChatColor.BLUE + "/mec reload " + ChatColor.YELLOW + "- Reloads the plugin");
 			sender.sendMessage(ChatColor.BLUE + "/mec info " + ChatColor.YELLOW + "- Displays the version, author, and the amount of custom enchantments loaded");
 			sender.sendMessage(ChatColor.BLUE + "/enchant " + ChatColor.YELLOW + "- Enchant an item");
+			sender.sendMessage(ChatColor.BLUE + "/forceenchant " + ChatColor.YELLOW + "- Enchant an item (but without limits)");
 			sender.sendMessage(ChatColor.BLUE + "/disenchant " + ChatColor.YELLOW + "- Remove enchantments from items");
 			sender.sendMessage(ChatColor.BLUE + "/enchantment " + ChatColor.YELLOW + "- List or find out more information about enchantments");
 		} else if (args[0].equalsIgnoreCase("debug")) {

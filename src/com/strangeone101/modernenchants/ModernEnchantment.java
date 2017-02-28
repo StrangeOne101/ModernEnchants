@@ -204,7 +204,7 @@ public abstract class ModernEnchantment extends Enchantment {
 					line = line.replace('Z', toHex(level).charAt(1));
 					line = line + (ench.isCursed() ? ChatColor.RED : ChatColor.GRAY) + ench.getName();
 					
-					if (!getLevelString(level).equals("")) {
+					if (!getLevelString(level).equals("") && ench.getMaxLevel() != ench.getStartLevel()) {
 						line = line + " " + getLevelString(level);
 					}
 					
@@ -229,8 +229,8 @@ public abstract class ModernEnchantment extends Enchantment {
 		nonUpdated.addAll(enchantments.keySet());
 		nonUpdated.removeAll(enchantmentsUpdated);
 		
-		Bukkit.broadcastMessage("Nonupdate size: " + nonUpdated.size());
-		Bukkit.broadcastMessage("Encahnts size: " + enchantments.size());
+		//Bukkit.broadcastMessage("Nonupdate size: " + nonUpdated.size());
+		//Bukkit.broadcastMessage("Encahnts size: " + enchantments.size());
 		
 		for (Enchantment e : nonUpdated) {
 			if (ModernEnchantment.isModernEnchantment(e)) {
@@ -241,7 +241,7 @@ public abstract class ModernEnchantment extends Enchantment {
 				line = line.replace('Z', toHex(enchantments.get(e)).charAt(1));
 				line = line + (e.isCursed() ? ChatColor.RED : ChatColor.GRAY) + e.getName();
 				
-				if (!getLevelString(enchantments.get(e)).equals("")) {
+				if (!getLevelString(enchantments.get(e)).equals("") && e.getMaxLevel() != e.getStartLevel()) {
 					line = line + " " + getLevelString(enchantments.get(e));
 				}
 				
@@ -310,6 +310,18 @@ public abstract class ModernEnchantment extends Enchantment {
 	 */
 	public String getKeyName() {
 		return keyName;
+	}
+	
+	public int getMinEnchantability(int enchantmentLevel) {
+		if (getRarity() == Rarity.COMMON) return (enchantmentLevel - 1) * 5;
+		if (getRarity() == Rarity.UNCOMMON) return enchantmentLevel * 5;
+		if (getRarity() == Rarity.RARE) return enchantmentLevel * 8;
+		if (getRarity() == Rarity.VERY_RARE) return enchantmentLevel * 10;
+		return enchantmentLevel * 10;
+	}
+	
+	public int getMaxEnchantability(int enchantmentLevel) {
+		return this.getMinEnchantability(enchantmentLevel) + 15;
 	}
 
 	public abstract Rarity getRarity();

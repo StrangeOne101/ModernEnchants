@@ -60,4 +60,16 @@ public class GenericUtil {
 			return false;
 		}
 	}
+	
+	public static String makeListFancy(List<? extends Object> list)
+	{
+		String s = "";
+		for (int i = 0; i < list.size(); i++)
+		{
+			if (i == 0) {s = list.get(0).toString();}
+			else if (i == list.size() - 1) {s = s + " and " + list.get(i);}
+			else {s = s + ", " + list.get(i);}
+		}
+		return s;
+	}
 }

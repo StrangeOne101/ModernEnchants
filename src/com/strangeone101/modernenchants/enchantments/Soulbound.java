@@ -14,8 +14,10 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import com.strangeone101.modernenchants.ModernEnchantment;
+import com.strangeone101.modernenchants.ModernEnchants;
 import com.strangeone101.modernenchants.config.StandardConfig;
 import com.strangeone101.modernenchants.nms.Rarity;
 
@@ -54,12 +56,12 @@ public class Soulbound extends ModernEnchantment implements Listener {
 
 	@Override
 	public int getMaxLevel() {
-		return 0;
+		return 1;
 	}
 
 	@Override
 	public int getStartLevel() {
-		return 0;
+		return 1;
 	}
 
 	@Override
@@ -84,18 +86,18 @@ public class Soulbound extends ModernEnchantment implements Listener {
 
 	@Override
 	public boolean canEnchantItem(ItemStack paramItemStack) {
-		return false;
+		return true;
 	}
 	
 	@EventHandler(priority = EventPriority.HIGH)
-	public void onDeath(PlayerDeathEvent event) {
+	public void onDeath(final PlayerDeathEvent event) {
 		if (event.getKeepInventory()) return;
 		List<ItemStack> toRemove = new ArrayList<ItemStack>();
 		for (ItemStack stack : event.getDrops()) {
 			if (ModernEnchantment.hasEnchantments(stack)) {
-				if (ModernEnchantment.getEnchantments(stack).containsKey((Enchantment)this)) {
+				if (ModernEnchantment.getEnchantments(stack).containsKey(this)) {
 					if (behaviour == UNENCHANT || behaviour == DAMAGE_AND_UNENCHANT) {
-						stack.getEnchantments().remove((Enchantment)this);
+						stack.removeEnchantment((Enchantment)this);
 					}
 					
 					if (stack.getType().getMaxDurability() > 1 && (behaviour == DAMAGE || behaviour == DAMAGE_AND_UNENCHANT || behaviour == DAMAGE_UNENCHANT_ON_BREAK)) {
@@ -116,9 +118,23 @@ public class Soulbound extends ModernEnchantment implements Listener {
 				}
 			}
 		}
+		if (toRemove.size() > 0) {
+			event.getDrops().removeAll(toRemove);
+			event.getEntity().sendMessage(ChatColor.RED + "" + toRemove.size() + " item(s) remained bound to you after your death.");
+		}
 		
-		event.getDrops().removeAll(toRemove);
-		event.getEntity().sendMessage(ChatColor.RED + "" + toRemove.size() + " items remained bound to you after your death.");
+		final List<ItemStack> finalToRemove = toRemove;
+		
+		new BukkitRunnable() {
+
+			@Override
+			public void run() {
+				for (ItemStack stack : finalToRemove) {
+					event.getEntity().getInventory().addItem(stack);
+				}
+			}
+			
+		}.runTaskLater(ModernEnchants.PLUGIN, 2L);
 	}
 
 }

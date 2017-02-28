@@ -6,6 +6,7 @@ import org.bukkit.inventory.ItemStack;
 
 import com.strangeone101.modernenchants.ModernEnchantment;
 import com.strangeone101.modernenchants.config.StandardConfig;
+import com.strangeone101.modernenchants.event.ItemEnchantEvent;
 import com.strangeone101.modernenchants.nms.Rarity;
 
 public class Slashing extends ModernEnchantment {
@@ -62,6 +63,13 @@ public class Slashing extends ModernEnchantment {
 			}
 		}
 		return true;
+	}
+	
+	@Override
+	public void onEnchant(ItemEnchantEvent event) {
+		ItemStack stack = event.getItem();
+		
+		
 	}
 
 }
