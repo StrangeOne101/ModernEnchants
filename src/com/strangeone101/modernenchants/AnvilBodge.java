@@ -12,6 +12,9 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import com.strangeone101.modernenchants.event.ItemEnchantEvent;
+import com.strangeone101.modernenchants.event.ItemUpdateEvent;
+
 public class AnvilBodge implements Listener {
 	
 	@EventHandler
@@ -61,6 +64,14 @@ public class AnvilBodge implements Listener {
 					ItemStack stack = inventory.getItem(2);
 					if (ModernEnchantment.hasEnchantments(stack)) {
 						ModernEnchantment.updateEnchantments(stack);
+						
+						for (Enchantment e : event.getCurrentItem().getEnchantments().keySet()) {
+							if (ModernEnchantment.isModernEnchantment(e)) {
+								ModernEnchantment ench = (ModernEnchantment) e;
+								ItemEnchantEvent event2 = new ItemEnchantEvent(null, event.getCurrentItem(), e, event.getCurrentItem().getEnchantments().get(e));
+								ench.onEnchant(event2);
+							}
+						}
 					}
 				}
 			}

@@ -7,6 +7,9 @@ import org.bukkit.inventory.ItemStack;
 import com.strangeone101.modernenchants.ModernEnchantment;
 import com.strangeone101.modernenchants.config.StandardConfig;
 import com.strangeone101.modernenchants.event.ItemEnchantEvent;
+import com.strangeone101.modernenchants.nms.NMSAttributeManager;
+import com.strangeone101.modernenchants.nms.NMSAttributeManager.AttributeOperation;
+import com.strangeone101.modernenchants.nms.NMSAttributeManager.AttributeType;
 import com.strangeone101.modernenchants.nms.Rarity;
 
 public class Slashing extends ModernEnchantment {
@@ -68,7 +71,13 @@ public class Slashing extends ModernEnchantment {
 	@Override
 	public void onEnchant(ItemEnchantEvent event) {
 		ItemStack stack = event.getItem();
+		int level = event.getLevel();
 		
+		double amount = 0.8 * level;
+		
+		if (amount > 3.5) amount = 3.5D;
+		
+		NMSAttributeManager.setAttribute(stack, AttributeType.ATTACK_SPEED, AttributeOperation.ADDITION, -amount);
 		
 	}
 

@@ -23,6 +23,7 @@ import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import com.strangeone101.modernenchants.event.ItemEnchantEvent;
 import com.strangeone101.modernenchants.event.ItemKillEntityEvent;
 import com.strangeone101.modernenchants.event.ItemUpdateEvent;
 
@@ -33,10 +34,7 @@ public class ModernEnchantsListener implements Listener {
 		if (event.isCancelled()) return;
 		
 		for (Enchantment e : event.getEnchantsToAdd().keySet()) {
-			event.getEnchanter().sendMessage("Test11");
 			if (ModernEnchantment.isModernEnchantment(e)) {
-				event.getEnchanter().sendMessage("Test22");
-				
 				if (event.getItem().getType() == Material.BOOK) {
 					new BukkitRunnable() {
 
@@ -58,6 +56,9 @@ public class ModernEnchantsListener implements Listener {
 					event.getEnchanter().sendMessage(list.size() + "");
 					meta.setLore(list);
 					event.getItem().setItemMeta(meta);
+					
+					ItemEnchantEvent event2 = new ItemEnchantEvent(event, event.getItem(), e, event.getEnchantsToAdd().get(e));
+					((ModernEnchantment)e).onEnchant(event2);
 				}
 				
 				break;

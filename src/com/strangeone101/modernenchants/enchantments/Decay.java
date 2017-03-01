@@ -12,7 +12,6 @@ public class Decay extends ModernEnchantment {
 
 	public Decay(int id) {
 		super(id, "decay");
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -52,7 +51,6 @@ public class Decay extends ModernEnchantment {
 
 	@Override
 	public boolean conflictsWith(Enchantment paramEnchantment) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
